@@ -4,50 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bangla Input Setup · Arch &amp; Debian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --bg: #f0fdf4;
-    --card: #ffffff;
-    --text: #14532d;
-    --muted: #3f6244;
-    --border: #bbf7d0;
-    --accent: #22c55e;
-    --accent-hover: #16a34a;
-    --code-bg: #f0fdf4;
-    --code-text: #15803d;
-    --note-bg: #ecfdf5;
-    --note-border: #86efac;
-    --tab-bg: #ffffff;
-    --tab-active: #dcfce7;
-    --footer-text: #4ade80;
-  }
-
-  [data-theme="dark"] {
-    --bg: #064e3b;
-    --card: #065f46;
-    --text: #d1fae5;
-    --muted: #a7f3d0;
-    --border: #10b981;
-    --accent: #34d399;
-    --accent-hover: #6ee7b7;
-    --code-bg: #047857;
-    --code-text: #6ee7b7;
-    --note-bg: #064e3b;
-    --note-border: #34d399;
-    --tab-bg: #047857;
-    --tab-active: #059669;
-    --footer-text: #4ade80;
-  }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f6f8fa;
+    color: #24292e;
     line-height: 1.5;
     min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
+  }
+
+  h1, h2, h3 {
+    font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   .page-body {
@@ -62,98 +34,81 @@
   header {
     width: 100%;
     margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
   }
 
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  .breadcrumbs {
     font-size: 0.875rem;
-    color: var(--muted);
+    color: #6e7781;
+    margin-bottom: 1rem;
   }
 
-  .breadcrumbs a { color: var(--muted); text-decoration: none; }
+  .breadcrumbs a { color: #0969da; text-decoration: none; }
   .breadcrumbs a:hover { text-decoration: underline; }
-  .breadcrumbs span { margin: 0 0.25rem; }
-
-  .theme-toggle {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.875rem;
-  }
-
-  .theme-toggle:hover { background: var(--tab-bg); }
+  .breadcrumbs span { margin: 0 0.25rem; color: #959da5; }
 
   h1 {
+    font-family: "Bricolage Grotesque";
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--text);
+    color: #1f2328;
   }
 
   .tagline {
-    color: var(--muted);
+    color: #57606a;
     font-size: 1rem;
   }
 
   main {
     width: 100%;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
     padding: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
   }
 
   h2 {
+    font-family: "Bricolage Grotesque";
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--accent);
-    color: var(--text);
+    border-bottom: 1px solid #eaeaea;
+    color: #1f2328;
   }
 
   h2:first-of-type { margin-top: 0; border: none; }
 
   h3 {
+    font-family: "Bricolage Grotesque";
     font-size: 1rem;
     font-weight: 600;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--text);
+    color: #1f2328;
   }
 
-  p { margin-bottom: 1rem; color: var(--text); }
+  p { margin-bottom: 1rem; color: #24292e; }
 
   ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
-  li { margin-bottom: 0.35rem; color: var(--text); }
+  li { margin-bottom: 0.35rem; color: #24292e; }
 
   code {
     font-family: ui-monospace, SFMono-Regular, SF Mono, Consolas, "Liberation Mono", monospace;
-    background: var(--code-bg);
-    color: var(--code-text);
+    background: #f3f4f6;
+    color: #d73a49;
     padding: 0.15rem 0.35rem;
     border-radius: 4px;
     font-size: 0.875rem;
-    border: 1px solid var(--border);
+    border: 1px solid #d0d7de;
   }
 
   pre {
     position: relative;
-    background: var(--code-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
     padding: 1rem 1rem 1rem 3rem;
     overflow-x: auto;
     margin: 1rem 0;
@@ -164,7 +119,7 @@
     border: none;
     padding: 0;
     font-size: 0.875rem;
-    color: var(--code-text);
+    color: #24292e;
     display: block;
     white-space: pre;
     word-wrap: normal;
@@ -174,18 +129,18 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: var(--tab-bg);
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    color: #24292e;
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
     font-size: 0.75rem;
-    cursor: pointer;
     font-family: ui-monospace, monospace;
+    cursor: pointer;
   }
 
-  .copy-btn:hover { background: var(--tab-active); }
-  .copy-btn.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn:hover { background: #f3f4f6; }
+  .copy-btn.copied { background: #0969da; color: #fff; border-color: #0969da; }
 
   .distro-tabs {
     display: flex;
@@ -195,111 +150,82 @@
   }
 
   .tab {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border);
-    background: var(--tab-bg);
-    color: var(--text);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #d0d7de;
+    background: #f6f8fa;
+    color: #24292e;
     border-radius: 6px;
     font-size: 0.875rem;
     cursor: pointer;
+    font-family: "Hanken Grotesk";
   }
 
-  .tab:hover { background: var(--tab-active); }
+  .tab:hover { background: #eaeaea; }
 
-  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab.active { background: #0969da; color: #fff; border-color: #0969da; }
 
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
   .note {
-    background: var(--note-bg);
-    border: 1px solid var(--note-border);
-    border-left: 4px solid var(--accent);
+    background: #fffdef;
+    border: 1px solid #e3e1d4;
+    border-left: 4px solid #d29922;
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 4px;
     font-size: 0.9rem;
-    color: var(--text);
+    color: #24292e;
   }
 
+  .note.tip { background: #e7f5ff; border-color: #b6dcf7; border-left-color: #0969da; }
+
   .verify-box {
-    background: var(--note-bg);
-    border: 1px solid var(--note-border);
-    border-radius: 8px;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
     padding: 1rem;
     margin-top: 1.5rem;
   }
 
   .bangla {
     font-family: "Noto Sans Bengali", "Bangla MN", "Mukti Narrow", "Vrinda", sans-serif;
-    font-size: 1.75rem;
-    color: var(--text);
+    font-size: 1.5rem;
+    color: #1f2328;
   }
 
   kbd {
     font-family: ui-monospace, SFMono-Regular, monospace;
-    background: var(--code-bg);
-    border: 1px solid var(--border);
+    background: #f3f4f6;
+    border: 1px solid #d0d7de;
     border-radius: 4px;
     padding: 0.15rem 0.4rem;
     font-size: 0.85rem;
-    color: var(--text);
+    color: #24292e;
   }
 
   .footer {
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 2px solid var(--border);
+    border-top: 1px solid #eaeaea;
     font-size: 0.875rem;
-    color: var(--footer-text);
+    color: #6e7781;
     text-align: center;
   }
 
-  a { color: var(--accent); text-decoration: none; }
+  a { color: #0969da; text-decoration: none; }
   a:hover { text-decoration: underline; }
-
-  .live-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--accent);
-    color: #fff;
-    padding: 0.35rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-top: 0.5rem;
-  }
-
-  .live-badge::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
 </style>
 </head>
 <body>
 
 <div class="page-body">
   <header>
-    <div class="header-top">
-      <div class="breadcrumbs">
-        <a href="#">Home</a> <span>›</span> <a href="#">Setup Guides</a> <span>›</span> Bangla Input
-      </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+    <div class="breadcrumbs">
+      <a href="#">Home</a> <span>›</span> <a href="#">Setup Guides</a> <span>›</span> Bangla Input
     </div>
     <h1>Bangla Input Setup</h1>
     <p class="tagline">Phonetic Bengali (Avro-style) input on Arch Linux and Debian-based systems.</p>
-    <a href="https://ratuuul.github.io/linux-bangla/" class="live-badge" target="_blank" rel="noopener">Live site →</a>
   </header>
 
   <main>
@@ -478,22 +404,6 @@ function switchTab(evt, tabName) {
   document.getElementById(tabName).classList.add("active");
   evt.currentTarget.classList.add("active");
 }
-
-// Theme toggle
-const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  document.documentElement.setAttribute('data-theme', savedTheme);
-} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  document.documentElement.setAttribute('data-theme', 'dark');
-}
-
-themeToggle.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-});
 
 // Copy buttons for all code blocks
 document.querySelectorAll('pre').forEach(pre => {
