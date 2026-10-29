@@ -7,11 +7,47 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --bg: #f0fdf4;
+    --card: #ffffff;
+    --text: #14532d;
+    --muted: #3f6244;
+    --border: #bbf7d0;
+    --accent: #22c55e;
+    --accent-hover: #16a34a;
+    --code-bg: #f0fdf4;
+    --code-text: #15803d;
+    --note-bg: #ecfdf5;
+    --note-border: #86efac;
+    --tab-bg: #ffffff;
+    --tab-active: #dcfce7;
+    --footer-text: #4ade80;
+  }
+
+  [data-theme="dark"] {
+    --bg: #064e3b;
+    --card: #065f46;
+    --text: #d1fae5;
+    --muted: #a7f3d0;
+    --border: #10b981;
+    --accent: #34d399;
+    --accent-hover: #6ee7b7;
+    --code-bg: #047857;
+    --code-text: #6ee7b7;
+    --note-bg: #064e3b;
+    --note-border: #34d399;
+    --tab-bg: #047857;
+    --tab-active: #059669;
+    --footer-text: #4ade80;
+  }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #f6f8fa;
-    color: #24292e;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.5;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
   }
 
   .page-body {
@@ -26,45 +62,66 @@
   header {
     width: 100%;
     margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .breadcrumbs {
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     font-size: 0.875rem;
-    color: #6e7781;
-    margin-bottom: 1rem;
+    color: var(--muted);
   }
 
-  .breadcrumbs a { color: #0969da; text-decoration: none; }
+  .breadcrumbs a { color: var(--muted); text-decoration: none; }
   .breadcrumbs a:hover { text-decoration: underline; }
-  .breadcrumbs span { margin: 0 0.25rem; color: #959da5; }
+  .breadcrumbs span { margin: 0 0.25rem; }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+
+  .theme-toggle:hover { background: var(--tab-bg); }
 
   h1 {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+    color: var(--text);
   }
 
   .tagline {
-    color: #57606a;
+    color: var(--muted);
     font-size: 1rem;
   }
 
   main {
     width: 100%;
-    background: #ffffff;
-    border: 1px solid #d0d7de;
-    border-radius: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
   }
 
   h2 {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eaeaea;
-    color: #1f2328;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
   }
 
   h2:first-of-type { margin-top: 0; border: none; }
@@ -74,28 +131,30 @@
     font-weight: 600;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
-    color: #1f2328;
+    color: var(--text);
   }
 
-  p { margin-bottom: 1rem; color: #24292e; }
+  p { margin-bottom: 1rem; color: var(--text); }
 
   ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
-  li { margin-bottom: 0.35rem; color: #24292e; }
+  li { margin-bottom: 0.35rem; color: var(--text); }
 
   code {
     font-family: ui-monospace, SFMono-Regular, SF Mono, Consolas, "Liberation Mono", monospace;
-    background: #f3f4f6;
-    color: #d73a49;
+    background: var(--code-bg);
+    color: var(--code-text);
     padding: 0.15rem 0.35rem;
     border-radius: 4px;
     font-size: 0.875rem;
+    border: 1px solid var(--border);
   }
 
   pre {
-    background: #f6f8fa;
-    border: 1px solid #d0d7de;
-    border-radius: 6px;
-    padding: 1rem;
+    position: relative;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1rem 1rem 3rem;
     overflow-x: auto;
     margin: 1rem 0;
   }
@@ -105,11 +164,28 @@
     border: none;
     padding: 0;
     font-size: 0.875rem;
-    color: #24292e;
+    color: var(--code-text);
     display: block;
     white-space: pre;
     word-wrap: normal;
   }
+
+  .copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--tab-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: ui-monospace, monospace;
+  }
+
+  .copy-btn:hover { background: var(--tab-active); }
+  .copy-btn.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
 
   .distro-tabs {
     display: flex;
@@ -119,76 +195,111 @@
   }
 
   .tab {
-    padding: 0.4rem 0.9rem;
-    border: 1px solid #d0d7de;
-    background: #f6f8fa;
-    color: #24292e;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    color: var(--text);
     border-radius: 6px;
     font-size: 0.875rem;
     cursor: pointer;
   }
 
-  .tab.active { background: #0969da; color: #fff; border-color: #0969da; }
+  .tab:hover { background: var(--tab-active); }
+
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
   .note {
-    background: #fffdef;
-    border: 1px solid #e3e1d4;
-    border-left: 4px solid #d29922;
+    background: var(--note-bg);
+    border: 1px solid var(--note-border);
+    border-left: 4px solid var(--accent);
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 4px;
     font-size: 0.9rem;
+    color: var(--text);
   }
 
-  .note.tip { background: #e7f5ff; border-color: #b6dcf7; border-left-color: #0969da; }
-
   .verify-box {
-    background: #f6f8fa;
-    border: 1px solid #d0d7de;
-    border-radius: 6px;
+    background: var(--note-bg);
+    border: 1px solid var(--note-border);
+    border-radius: 8px;
     padding: 1rem;
     margin-top: 1.5rem;
   }
 
   .bangla {
     font-family: "Noto Sans Bengali", "Bangla MN", "Mukti Narrow", "Vrinda", sans-serif;
-    font-size: 1.5rem;
-    color: #1f2328;
+    font-size: 1.75rem;
+    color: var(--text);
   }
 
   kbd {
     font-family: ui-monospace, SFMono-Regular, monospace;
-    background: #f3f4f6;
-    border: 1px solid #d0d7de;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
     border-radius: 4px;
     padding: 0.15rem 0.4rem;
     font-size: 0.85rem;
+    color: var(--text);
   }
 
   .footer {
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 1px solid #eaeaea;
+    border-top: 2px solid var(--border);
     font-size: 0.875rem;
-    color: #6e7781;
+    color: var(--footer-text);
+    text-align: center;
   }
 
-  a { color: #0969da; text-decoration: none; }
+  a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .live-badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
 </style>
 </head>
 <body>
 
 <div class="page-body">
   <header>
-    <div class="breadcrumbs">
-      <a href="#">Home</a> <span>›</span> <a href="#">Setup Guides</a> <span>›</span> Bangla Input
+    <div class="header-top">
+      <div class="breadcrumbs">
+        <a href="#">Home</a> <span>›</span> <a href="#">Setup Guides</a> <span>›</span> Bangla Input
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
     </div>
     <h1>Bangla Input Setup</h1>
     <p class="tagline">Phonetic Bengali (Avro-style) input on Arch Linux and Debian-based systems.</p>
+    <a href="https://ratuuul.github.io/linux-bangla/" class="live-badge" target="_blank" rel="noopener">Live site →</a>
   </header>
 
   <main>
@@ -208,7 +319,7 @@
       <p>Bornopata (Avro phonetic) is available on the AUR:</p>
       <pre><code>yay -S bornopata
 bornopata-setup</code></pre>
-      <p class="note tip"><strong>Note:</strong> Run <code>bornopata-setup</code> as your regular user, not as root. It adds Bornopata to fcitx5 and restarts the daemon.</p>
+      <p class="note"><strong>Note:</strong> Run <code>bornopata-setup</code> as your regular user, not as root. It adds Bornopata to fcitx5 and restarts the daemon.</p>
 
       <h3>Final: Mega one-liner</h3>
       <p>Copy-paste this entire block to install everything, set shell variables, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable. <code>bornopata-setup</code> configures fcitx5 automatically — no extra clicks needed.</p>
@@ -219,7 +330,7 @@ bornopata-setup</code></pre>
       <h3>1. Install packages</h3>
       <pre><code>sudo apt update
 sudo apt install fcitx5 fcitx5-configtool fcitx5-m17n m17n-db</code></pre>
-      <p class="note tip">After installing, log out and back in so fcitx5 picks up the input method modules.</p>
+      <p class="note">After installing, log out and back in so fcitx5 picks up the input method modules.</p>
 
       <h3>Final: Mega one-liner</h3>
       <p>Copy-paste this entire block to install packages, set shell variables, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable:</p>
@@ -234,14 +345,14 @@ sudo apt install fcitx5 fcitx5-configtool fcitx5-m17n m17n-db</code></pre>
     <div id="hyprland-arch" class="tab-content">
       <h3>1. One-liner setup</h3>
       <pre><code>sudo pacman -S --needed fcitx5 fcitx5-configtool fcitx5-m17n m17n-db && yay -S --needed bornopata && bornopata-setup</code></pre>
-      <p class="note tip"><strong>Note:</strong> Run <code>bornopata-setup</code> as your regular user, not as root.</p>
+      <p class="note"><strong>Note:</strong> Run <code>bornopata-setup</code> as your regular user, not as root.</p>
       <h3>2. Hyprland env vars</h3>
       <p>Add to <code>~/.config/hypr/hyprland.lua</code>:</p>
       <pre><code>hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("QT_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
 hl.exec_cmd("fcitx5 -d")</code></pre>
-      <p class="note tip">Reload Hyprland (<kbd>SUPER</kbd> + <kbd>R</kbd>) after saving.</p>
+      <p class="note">Reload Hyprland (<kbd>SUPER</kbd> + <kbd>R</kbd>) after saving.</p>
 
       <h3>Final: Mega one-liner</h3>
       <p>Copy-paste this entire block to install packages, set shell variables, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable. On Arch, <code>bornopata-setup</code> configures fcitx5 automatically — no extra clicks needed.</p>
@@ -257,7 +368,7 @@ hl.exec_cmd("fcitx5 -d")</code></pre>
 hl.env("QT_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
 hl.exec_cmd("fcitx5 -d")</code></pre>
-      <p class="note tip">Log out and back in after installing so fcitx5 picks up the input method modules.</p>
+      <p class="note">Log out and back in after installing so fcitx5 picks up the input method modules.</p>
 
       <h3>Final: Mega one-liner</h3>
       <p>Copy-paste this entire block to install packages, set shell variables, append Hyprland env vars, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable:</p>
@@ -340,6 +451,41 @@ function switchTab(evt, tabName) {
   document.getElementById(tabName).classList.add("active");
   evt.currentTarget.classList.add("active");
 }
+
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
+
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+// Copy buttons for all code blocks
+document.querySelectorAll('pre').forEach(pre => {
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.textContent = 'Copy';
+  btn.addEventListener('click', () => {
+    const code = pre.querySelector('code');
+    navigator.clipboard.writeText(code.textContent).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+  pre.appendChild(btn);
+});
 </script>
 
 </body>
