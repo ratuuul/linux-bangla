@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bangla Input Setup · Arch &amp; Debian</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f6f8fa;
+    color: #24292e;
+    line-height: 1.5;
+  }
+
+  .page-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  header {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs {
+    font-size: 0.875rem;
+    color: #6e7781;
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumbs a { color: #0969da; text-decoration: none; }
+  .breadcrumbs a:hover { text-decoration: underline; }
+  .breadcrumbs span { margin: 0 0.25rem; color: #959da5; }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    color: #57606a;
+    font-size: 1rem;
+  }
+
+  main {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eaeaea;
+    color: #1f2328;
+  }
+
+  h2:first-of-type { margin-top: 0; border: none; }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1f2328;
+  }
+
+  p { margin-bottom: 1rem; color: #24292e; }
+
+  ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+  li { margin-bottom: 0.35rem; color: #24292e; }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Consolas, "Liberation Mono", monospace;
+    background: #f3f4f6;
+    color: #d73a49;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+
+  pre {
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    color: #24292e;
+    display: block;
+    white-space: pre;
+    word-wrap: normal;
+  }
+
+  .distro-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #d0d7de;
+    background: #f6f8fa;
+    color: #24292e;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  .tab.active { background: #0969da; color: #fff; border-color: #0969da; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .note {
+    background: #fffdef;
+    border: 1px solid #e3e1d4;
+    border-left: 4px solid #d29922;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .note.tip { background: #e7f5ff; border-color: #b6dcf7; border-left-color: #0969da; }
+
+  .verify-box {
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .bangla {
+    font-family: "Noto Sans Bengali", "Bangla MN", "Mukti Narrow", "Vrinda", sans-serif;
+    font-size: 1.5rem;
+    color: #1f2328;
+  }
+
+  kbd {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    background: #f3f4f6;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eaeaea;
+    font-size: 0.875rem;
+    color: #6e7781;
+  }
+
+  a { color: #0969da; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="page-body">
+  <header>
+    <div class="breadcrumbs">
+      <a href="#">Home</a> <span>›</span> <a href="#">Setup Guides</a> <span>›</span> Bangla Input
+    </div>
+    <h1>Bangla Input Setup</h1>
+    <p class="tagline">Phonetic Bengali (Avro-style) input on Arch Linux and Debian-based systems.</p>
+  </header>
+
+  <main>
+    <h2>Overview</h2>
+    <p>This guide covers setting up Bengali phonetic input using <strong>fcitx5</strong> with <strong>Bornopata</strong> (Avro-style phonetic layout). Works on any desktop environment, including Hyprland, GNOME, KDE, XFCE, and Sway.</p>
+
+    <div class="distro-tabs">
+      <button class="tab active" onclick="switchTab(event, 'arch')">Arch Linux</button>
+      <button class="tab" onclick="switchTab(event, 'debian')">Debian / Ubuntu</button>
+      <button class="tab" onclick="switchTab(event, 'hyprland-arch')">Hyprland on Arch</button>
+      <button class="tab" onclick="switchTab(event, 'hyprland-debian')">Hyprland on Debian</button>
+    </div>
+
+    <div id="arch" class="tab-content active">
+      <h3>1. Install packages</h3>
+      <pre><code>sudo pacman -S fcitx5 fcitx5-configtool fcitx5-m17n m17n-db</code></pre>
+      <p>Bornopata (Avro phonetic) is available on the AUR:</p>
+      <pre><code>yay -S bornopata
+bornopata-setup</code></pre>
+      <p class="note tip"><strong>Note:</strong> Run <code>bornopata-setup</code> as your regular user, not as root. It adds Bornopata to fcitx5 and restarts the daemon.</p>
+
+      <h3>Final: Mega one-liner</h3>
+      <p>Copy-paste this entire block to install everything, set shell variables, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable. <code>bornopata-setup</code> configures fcitx5 automatically — no extra clicks needed.</p>
+      <pre><code>sudo pacman -S --needed fcitx5 fcitx5-configtool fcitx5-m17n m17n-db && yay -S --needed bornopata && bornopata-setup && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.bashrc && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.profile && mkdir -p ~/.local/bin && printf '%s\n' '#!/bin/bash' 'current=$(fcitx5-remote -n 2>/dev/null)' 'if [[ "$current" == "bornopata" ]]; then' '  fcitx5-remote -s keyboard-us 2>/dev/null || fcitx5-remote -c' '  notify-send -i keyboard "Input Method" "Switched to English" -t 2000' 'else' '  fcitx5-remote -s bornopata 2>/dev/null' '  notify-send -i keyboard "Input Method" "Switched to Bangla (Avro)" -t 2000' 'fi' > ~/.local/bin/im-switch && chmod +x ~/.local/bin/im-switch && echo "Done. Log out and back in, then press Ctrl+Space to toggle."</code></pre>
+    </div>
+
+    <div id="debian" class="tab-content">
+      <h3>1. Install packages</h3>
+      <pre><code>sudo apt update
+sudo apt install fcitx5 fcitx5-configtool fcitx5-m17n m17n-db</code></pre>
+      <p class="note tip">After installing, log out and back in so fcitx5 picks up the input method modules.</p>
+
+      <h3>Final: Mega one-liner</h3>
+      <p>Copy-paste this entire block to install packages, set shell variables, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable:</p>
+      <pre><code>sudo apt update && sudo apt install -y fcitx5 fcitx5-configtool fcitx5-m17n m17n-db && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.bashrc && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.profile && mkdir -p ~/.local/bin && printf '%s\n' '#!/bin/bash' 'current=$(fcitx5-remote -n 2>/dev/null)' 'if [[ "$current" == "bornopata" ]]; then' '  fcitx5-remote -s keyboard-us 2>/dev/null || fcitx5-remote -c' '  notify-send -i keyboard "Input Method" "Switched to English" -t 2000' 'else' '  fcitx5-remote -s bornopata 2>/dev/null' '  notify-send -i keyboard "Input Method" "Switched to Bangla (Avro)" -t 2000' 'fi' > ~/.local/bin/im-switch && chmod +x ~/.local/bin/im-switch && echo "Done. Log out and back in, then press Ctrl+Space to toggle."</code></pre>
+      <p>Bornopata is not packaged for Debian/Ubuntu. You can either:</p>
+      <ul>
+        <li>Use the built-in <strong>m17n Bengali phonetic</strong> layout instead (run <code>fcitx5-config-gui</code> and select "Bengali › bengali-phonetic"), or</li>
+        <li>Build Bornopata from source (adapt the AUR package).</li>
+      </ul>
+    </div>
+
+    <div id="hyprland-arch" class="tab-content">
+      <h3>1. One-liner setup</h3>
+      <pre><code>sudo pacman -S --needed fcitx5 fcitx5-configtool fcitx5-m17n m17n-db && yay -S --needed bornopata && bornopata-setup</code></pre>
+      <p class="note tip"><strong>Note:</strong> Run <code>bornopata-setup</code> as your regular user, not as root.</p>
+      <h3>2. Hyprland env vars</h3>
+      <p>Add to <code>~/.config/hypr/hyprland.lua</code>:</p>
+      <pre><code>hl.env("GTK_IM_MODULE", "fcitx")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("XMODIFIERS", "@im=fcitx")
+hl.exec_cmd("fcitx5 -d")</code></pre>
+      <p class="note tip">Reload Hyprland (<kbd>SUPER</kbd> + <kbd>R</kbd>) after saving.</p>
+
+      <h3>Final: Mega one-liner</h3>
+      <p>Copy-paste this entire block to install packages, set shell variables, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable. On Arch, <code>bornopata-setup</code> configures fcitx5 automatically — no extra clicks needed.</p>
+      <pre><code>sudo pacman -S --needed fcitx5 fcitx5-configtool fcitx5-m17n m17n-db && yay -S --needed bornopata && bornopata-setup && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.bashrc && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.profile && mkdir -p ~/.local/bin && printf '%s\n' '#!/bin/bash' 'current=$(fcitx5-remote -n 2>/dev/null)' 'if [[ "$current" == "bornopata" ]]; then' '  fcitx5-remote -s keyboard-us 2>/dev/null || fcitx5-remote -c' '  notify-send -i keyboard "Input Method" "Switched to English" -t 2000' 'else' '  fcitx5-remote -s bornopata 2>/dev/null' '  notify-send -i keyboard "Input Method" "Switched to Bangla (Avro)" -t 2000' 'fi' > ~/.local/bin/im-switch && chmod +x ~/.local/bin/im-switch && printf 'hl.env("GTK_IM_MODULE", "fcitx")\nhl.env("QT_IM_MODULE", "fcitx")\nhl.env("XMODIFIERS", "@im=fcitx")\nhl.exec_cmd("fcitx5 -d")\n' >> ~/.config/hypr/hyprland.lua && printf 'o.bind("CTRL + SPACE", "Toggle Input Method", "/home/ratul/.local/bin/im-switch")\n' >> ~/.config/hypr/bindings.lua && echo "Done. Reload Hyprland (SUPER+R) and press Ctrl+Space to toggle."</code></pre>
+    </div>
+
+    <div id="hyprland-debian" class="tab-content">
+      <h3>1. One-liner setup</h3>
+      <pre><code>sudo apt update && sudo apt install -y fcitx5 fcitx5-configtool fcitx5-m17n m17n-db</code></pre>
+      <h3>2. Hyprland env vars</h3>
+      <p>Add to <code>~/.config/hypr/hyprland.lua</code>:</p>
+      <pre><code>hl.env("GTK_IM_MODULE", "fcitx")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("XMODIFIERS", "@im=fcitx")
+hl.exec_cmd("fcitx5 -d")</code></pre>
+      <p class="note tip">Log out and back in after installing so fcitx5 picks up the input method modules.</p>
+
+      <h3>Final: Mega one-liner</h3>
+      <p>Copy-paste this entire block to install packages, set shell variables, append Hyprland env vars, create the toggle script, bind <kbd>Ctrl</kbd> + <kbd>Space</kbd>, and make it executable:</p>
+      <pre><code>sudo apt update && sudo apt install -y fcitx5 fcitx5-configtool fcitx5-m17n m17n-db && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.bashrc && printf '\nexport GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx\n' >> ~/.profile && mkdir -p ~/.local/bin && printf '%s\n' '#!/bin/bash' 'current=$(fcitx5-remote -n 2>/dev/null)' 'if [[ "$current" == "bornopata" ]]; then' '  fcitx5-remote -s keyboard-us 2>/dev/null || fcitx5-remote -c' '  notify-send -i keyboard "Input Method" "Switched to English" -t 2000' 'else' '  fcitx5-remote -s bornopata 2>/dev/null' '  notify-send -i keyboard "Input Method" "Switched to Bangla (Avro)" -t 2000' 'fi' > ~/.local/bin/im-switch && chmod +x ~/.local/bin/im-switch && printf 'hl.env("GTK_IM_MODULE", "fcitx")\nhl.env("QT_IM_MODULE", "fcitx")\nhl.env("XMODIFIERS", "@im=fcitx")\nhl.exec_cmd("fcitx5 -d")\n' >> ~/.config/hypr/hyprland.lua && printf 'o.bind("CTRL + SPACE", "Toggle Input Method", "/home/ratul/.local/bin/im-switch")\n' >> ~/.config/hypr/bindings.lua && echo "Done. Reload Hyprland (SUPER+R)."</code></pre>
+      <p>Bornopata is not packaged for Debian/Ubuntu. Use the built-in <strong>m17n Bengali phonetic</strong> layout instead (run <code>fcitx5-config-gui</code> and select "Bengali › bengali-phonetic"), or build Bornopata from source.</p>
+    </div>
+
+    <h2>2. Environment variables (all distros)</h2>
+    <p>fcitx5 needs these exported before any graphical apps launch. Add to your shell config:</p>
+    <pre><code>export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx</code></pre>
+    <p class="note">On Hyprland, use <code>hl.env()</code> in your config so the variables reach Wayland clients.</p>
+
+    <h2>3. Start fcitx5</h2>
+    <pre><code>fcitx5 -d</code></pre>
+    <p>Then add it to your desktop's autostart (Hyprland <code>exec-once</code>, GNOME startup apps, etc.).</p>
+
+    <h2>4. Configure input methods</h2>
+    <p>Run the config GUI:</p>
+    <pre><code>fcitx5-config-gui</code></pre>
+    <ol>
+      <li>Click the <code>+</code> button to add an input method.</li>
+      <li>Uncheck "Only Show Current Language".</li>
+      <li>Search for <strong>Bornopata</strong> (Arch/AUR) or <strong>Bengali › bengali-phonetic</strong> (Debian/m17n).</li>
+      <li>Add it, then move it to the top of the list.</li>
+    </ol>
+
+    <h2>5. Switch between English and Bangla</h2>
+    <p>Default fcitx5 toggle: <kbd>Ctrl</kbd> + <kbd>Space</kbd>.</p>
+    <div class="verify-box">
+      <h3>Custom toggle with notifications (Hyprland)</h3>
+      <p>Save this as <code>~/.local/bin/im-switch</code>:</p>
+      <pre><code>#!/bin/bash
+current=$(fcitx5-remote -n 2>/dev/null)
+
+if [[ "$current" == "bornopata" ]]; then
+  fcitx5-remote -s keyboard-us 2>/dev/null || fcitx5-remote -c
+  notify-send -i keyboard "Input Method" "Switched to English" -t 2000
+else
+  fcitx5-remote -s bornopata 2>/dev/null
+  notify-send -i keyboard "Input Method" "Switched to Bangla (Avro)" -t 2000
+fi</code></pre>
+      <p>Make it executable: <code>chmod +x ~/.local/bin/im-switch</code></p>
+      <p>Bind in Hyprland (<code>~/.config/hypr/bindings.lua</code>):</p>
+      <pre><code>o.bind("CTRL + SPACE", "Toggle Input Method", "/home/ratul/.local/bin/im-switch")</code></pre>
+    </div>
+
+    <h2>6. Verify</h2>
+    <p>Switch to Bangla (<kbd>Ctrl</kbd> + <kbd>Space</kbd>), then type:</p>
+    <p class="bangla">আমি</p>
+    <div class="verify-box">
+      <p>If you see <span class="bangla">আমি</span>, it works. If not:</p>
+      <ul>
+        <li>Run <code>fcitx5-diagnose</code> to check for missing pieces.</li>
+        <li>Confirm <code>fcitx5-remote -n</code> shows <code>bornopata</code> when switched.</li>
+        <li>Log out and back in after installing packages.</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <p>Maintained locally &mdash; no frameworks, no tracking, no build step.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+function switchTab(evt, tabName) {
+  var i, tabcontent, tabs;
+  tabcontent = document.getElementsByClassName("tab-content");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    tabcontent[i].classList.remove("active");
+  }
+  tabs = document.getElementsByClassName("tab");
+  for (i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+  document.getElementById(tabName).style.display = "block";
+  document.getElementById(tabName).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
+</script>
+
+</body>
+</html>
