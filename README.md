@@ -1,5 +1,7 @@
 # linux-bangla
 
+**Live site: https://ratuuul.github.io/linux-bangla/**
+
 Bangla (Bengali) phonetic input setup for Arch Linux and Debian-based systems using fcitx5 and Bornopata (Avro-style).
 
 ## What this does
@@ -33,3 +35,7 @@ hl.exec_cmd("fcitx5 -d")
 And bind `CTRL + SPACE` to `~/.local/bin/im-switch` (included in the one-liner on the site).
 
 See `index.html` for full distro-specific steps.
+
+## License
+
+MIT
