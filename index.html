@@ -383,9 +383,36 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx</code></pre>
     <p class="note">On Hyprland, use <code>hl.env()</code> in your config so the variables reach Wayland clients.</p>
 
-    <h2>3. Start fcitx5</h2>
+    <h2>3. Autostart fcitx5</h2>
+    <p>fcitx5 needs to start automatically with your desktop session. Choose your environment:</p>
+
+    <h3>Hyprland</h3>
+    <p>Add to <code>~/.config/hypr/hyprland.lua</code> (already included in the Hyprland mega one-liner):</p>
+    <pre><code>hl.exec_cmd("fcitx5 -d")</code></pre>
+
+    <h3>Sway</h3>
+    <p>Add to <code>~/.config/sway/config</code>:</p>
+    <pre><code>exec fcitx5 -d</code></pre>
+
+    <h3>GNOME</h3>
+    <p>Open "Startup Applications" and add a new entry:</p>
+    <pre><code>Name: fcitx5
+Command: fcitx5 -d</code></pre>
+
+    <h3>KDE Plasma</h3>
+    <p>Go to System Settings → Startup and Shutdown → Autostart → Add Program, then enter:</p>
     <pre><code>fcitx5 -d</code></pre>
-    <p>Then add it to your desktop's autostart (Hyprland <code>exec-once</code>, GNOME startup apps, etc.).</p>
+
+    <h3>XFCE</h3>
+    <p>Go to Settings → Session and Startup → Application Autostart → Add, then enter:</p>
+    <pre><code>Name: fcitx5
+Command: fcitx5 -d</code></pre>
+
+    <h3>Any desktop (shell autostart)</h3>
+    <p>Add to <code>~/.xprofile</code> or <code>~/.profile</code>:</p>
+    <pre><code>fcitx5 -d &amp;</code></pre>
+
+    <p class="note">After adding autostart, log out and back in for fcitx5 to start automatically.</p>
 
     <h2>4. Configure input methods</h2>
     <p>Run the config GUI:</p>
